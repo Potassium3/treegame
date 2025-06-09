@@ -53,6 +53,20 @@
         .grid-square:has(.grid-square-input:checked)>.grid-square-tree {
             background-color: var(--theme-green);
         }
+
+        .grid-number {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            text-align:center;
+            line-height: 50px;
+        }
+
+        .grid-corner {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -64,12 +78,26 @@
     </table>
     <script>
         const SIZE = 5;
+        document.getElementById("grid").innerHTML += "<tr id='grid-row-top' class='grid-row'></tr>";
+        document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner'></td>";
+        for (let x=0; x<SIZE; x++) {
+            document.getElementById("grid-row-top").innerHTML += "<td class='grid-number'>1</td>";
+        }
+        document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner'></td>";
         for (let y=0; y<SIZE; y++) {
             document.getElementById("grid").innerHTML += "<tr id='grid-row-"+y+"'' class='grid-row'></tr>";
+            document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-number'>1</td>";
             for (let x=0; x<SIZE; x++) {
                 document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-square'><div class='grid-square-tree'><input type='checkbox' class='grid-square-input'></div></td>";
             }
+            document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-number'>1</td>";
         }
+        document.getElementById("grid").innerHTML += "<tr id='grid-row-bottom' class='grid-row'></tr>";
+        document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner'></td>";
+        for (let x=0; x<SIZE; x++) {
+            document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-number'>1</td>";
+        }
+        document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner'></td>";
     </script>
 </body>
 </html>
