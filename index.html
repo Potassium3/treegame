@@ -7,14 +7,25 @@
     <style>
         :root {
             --theme-green: #57e244;
+            --theme-darkgreen: #144b16;
+            --theme-background: #e8f4e8;
         }
 
         body {
-            background-color: white;
+            background-color: var(--theme-background);
+            height: 100vh;
+            width: 100vw;
         }
 
         .text {
             color: black;
+        }
+
+        .text-title {
+            font-size: 40pt;
+            text-align: center;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: var(--theme-darkgreen);
         }
 
         .grid {
@@ -24,11 +35,14 @@
             transform: translate(-50%, -50%);
         }
 
-        .grid-square {
-            border: 2px solid black;
+        .grid-item {
             width: 50px;
             height: 50px;
             position: relative;
+        }
+
+        .grid-square {
+            border: 2px solid black;
         }
 
         .grid-square-input {
@@ -55,51 +69,47 @@
         }
 
         .grid-number {
-            width: 50px;
-            height: 50px;
-            position: relative;
             text-align:center;
             line-height: 50px;
             font-family:'Courier New', Courier, monospace;
             font-size: 20pt;
+            border: none;
         }
 
         .grid-corner {
-            width: 50px;
-            height: 50px;
-            position: relative;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <h1 class="text">Trees work</h1>
+    <h1 class="text text-title">Tree game</h1>
     <table class="grid">
         <tbody id="grid">
             <!--Javascript-->
         </tbody>
     </table>
     <script>
-        const SIZE = 5;
+        const SIZE = 10;
         document.getElementById("grid").innerHTML += "<tr id='grid-row-top' class='grid-row'></tr>";
-        document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner'></td>";
+        document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner grid-item'></td>";
         for (let x=0; x<SIZE; x++) {
-            document.getElementById("grid-row-top").innerHTML += "<td class='grid-number'>1</td>";
+            document.getElementById("grid-row-top").innerHTML += "<td class='grid-number grid-item'>1</td>";
         }
-        document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner'></td>";
+        document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner grid-item'></td>";
         for (let y=0; y<SIZE; y++) {
             document.getElementById("grid").innerHTML += "<tr id='grid-row-"+y+"'' class='grid-row'></tr>";
-            document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-number'>1</td>";
+            document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-number grid-item'>4</td>";
             for (let x=0; x<SIZE; x++) {
-                document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-square'><div class='grid-square-tree'><input type='checkbox' class='grid-square-input'></div></td>";
+                document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-square grid-item'><div class='grid-square-tree'><input type='checkbox' class='grid-square-input'></div></td>";
             }
-            document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-number'>1</td>";
+            document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-number grid-item'>2</td>";
         }
         document.getElementById("grid").innerHTML += "<tr id='grid-row-bottom' class='grid-row'></tr>";
-        document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner'></td>";
+        document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner grid-item'></td>";
         for (let x=0; x<SIZE; x++) {
-            document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-number'>1</td>";
+            document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-number grid-item'>3</td>";
         }
-        document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner'></td>";
+        document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner grid-item'></td>";
     </script>
 </body>
 </html>
