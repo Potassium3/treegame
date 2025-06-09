@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-creator="Derek and Timothy">Tree game</title>
+    <style>
+        :root {
+            --theme-green: #57e244;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .text {
+            color: black;
+        }
+
+        .grid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .grid-square {
+            border: 2px solid black;
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .grid-square-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .grid-square-tree {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+
+        .grid-square:has(.grid-square-input:checked)>.grid-square-tree {
+            background-color: var(--theme-green);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text">Trees work</h1>
+    <table class="grid">
+        <tbody id="grid">
+            <!--Javascript-->
+        </tbody>
+    </table>
+    <script>
+        const SIZE = 5;
+        for (let y=0; y<SIZE; y++) {
+            document.getElementById("grid").innerHTML += "<tr id='grid-row-"+y+"'' class='grid-row'></tr>";
+            for (let x=0; x<SIZE; x++) {
+                document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-square'><div class='grid-square-tree'><input type='checkbox' class='grid-square-input'></div></td>";
+            }
+        }
+    </script>
+</body>
+</html>
