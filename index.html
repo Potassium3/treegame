@@ -46,27 +46,16 @@
             border: 2px solid black;
         }
 
-        .grid-square-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
+        .grid-square-white {
+            background-color: #ffffff;
         }
 
-        .grid-square-tree {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-        }
-
-        .grid-square:has(.grid-square-input:checked)>.grid-square-tree {
+        .grid-square-green {
             background-color: var(--theme-green);
+        }
+
+        .grid-square-red {
+            background-color: var(--theme-red);
         }
 
         .grid-number {
@@ -102,7 +91,12 @@
                 elem.innerHTML += "<tr id='grid-row-"+y+"'' class='grid-row'></tr>";
                 document.getElementById("grid-row-"+y).innerHTML += `<td class='grid-number grid-item'>${numbers[3][size-y-1]}</td>`;
                 for (let x=0; x<size; x++) {
-                    document.getElementById("grid-row-"+y).innerHTML += "<td class='grid-square grid-item'><div class='grid-square-tree'><input type='checkbox' class='grid-square-input'></div></td>";
+                    document.getElementById("grid-row-"+y).innerHTML += `<td id='grid-square-${y}-${x}' 
+                        class='grid-square grid-square-white grid-item' 
+                        onclick=''></td>`;
+                    document.getElementById(`grid-square-${y}-${x}`).onclick = function () {
+                        this.className = "grid-square grid-square-green grid-item";
+                    }
                 }
                 document.getElementById("grid-row-"+y).innerHTML += `<td class='grid-number grid-item'>${numbers[1][y]}</td>`;
             }
