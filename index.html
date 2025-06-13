@@ -88,7 +88,7 @@
             }
             document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner grid-item'></td>";
             for (let y=0; y<size; y++) {
-                elem.innerHTML += "<tr id='grid-row-"+y+"'' class='grid-row'></tr>";
+                elem.innerHTML += `<tr id='grid-row-${y}' class='grid-row'></tr>`;
                 document.getElementById("grid-row-"+y).innerHTML += `<td class='grid-number grid-item'>${numbers[3][size-y-1]}</td>`;
                 for (let x=0; x<size; x++) {
                     document.getElementById("grid-row-"+y).innerHTML += `<td id='grid-square-${y}-${x}' 
