@@ -82,7 +82,6 @@
         </tbody>
     </table>
     <script>
-        const SIZE = 5;
         function updateGrid(elem, size, numbers, grid=[]) {
             elem.innerHTML = ""; // Clear the grid
             elem.innerHTML += "<tr id='grid-row-top' class='grid-row'></tr>";
@@ -120,6 +119,7 @@
             }
             return re;
         }
+        const SIZE = 5;
         var grid = getClearGrid(SIZE);
         let elem = document.getElementById("grid");
         const PUZZ = [[0, 0, 0, 3, 5], [2, 1, 2, 2, 1], [5, 3, 0, 0, 0], [1, 2, 2, 1, 2]]
