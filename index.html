@@ -122,9 +122,8 @@
         }
         var grid = getClearGrid(SIZE);
         let elem = document.getElementById("grid");
-        const PUZZ = [[0, 0, 0, 0, 5], [0, 0, 0, 0, 1], [0, 2, 0, 0, 3], [0, 4, 0, 0, 0]]
+        const PUZZ = [[0, 0, 0, 3, 5], [2, 1, 2, 2, 1], [5, 3, 0, 0, 0], [1, 2, 2, 1, 2]]
         updateGrid(elem, SIZE, PUZZ, grid);
-        
         function squareClick(x, y) {
             console.log("Clicked");
             grid[y][x] = (grid[y][x] + 1) % 3;
