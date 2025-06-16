@@ -6,7 +6,7 @@
     <title data-creator="Derek and Timothy">Tree game</title>
     <style>
         :root {
-            --theme-green: #00ff7b;
+            --theme-green: #324A22;
             --theme-darkgreen: #004723;
             --theme-background: #92c4a6;
             --theme-red: #ff0000;
@@ -92,8 +92,10 @@
                 document.getElementById("grid-row-"+y).innerHTML += `<td class='grid-number grid-item'>${numbers[3][size-y-1]}</td>`;
                 for (let x=0; x<size; x++) {
                     document.getElementById("grid-row-"+y).innerHTML += `<td id='grid-square-${y}-${x}' 
-                        class='grid-square grid-square-white grid-item' 
-                        onclick='click(${y}, ${x});'></td>`;
+                        class='grid-square grid-square-white grid-item'></td>`;
+                    document.getElementById("grid-square-"+y+"-"+x).addEventListener("click", function () {
+                        click(this.id);
+                    })
                 }
                 document.getElementById("grid-row-"+y).innerHTML += `<td class='grid-number grid-item'>${numbers[1][y]}</td>`;
             }
@@ -106,20 +108,12 @@
         }
         let elem = document.getElementById("grid");
         createGrid(elem, SIZE, [[0, 0, 0, 0, 5], [0, 0, 0, 0, 1], [0, 2, 0, 0, 3], [0, 4, 0, 0, 0]]);
-        function click(y, x) {
+        //It is making the grid, but it is not clickable
+        function click(id) {
             console.log("Clicked");
-            let square = document.getElementById(`grid-square-${y}-${x}`);
-            if (square.classList.contains("grid-square-white")) {
-                square.classList.remove("grid-square-white");
-                square.classList.add("grid-square-green");
-            } else if (square.classList.contains("grid-square-green")) {
-                square.classList.remove("grid-square-green");
-                square.classList.add("grid-square-red");
-            } else if (square.classList.contains("grid-square-red")) {
-                square.classList.remove("grid-square-red");
-                square.classList.add("grid-square-white");
-            }
+            let square = document.getElementById(id);
+            square.className = "grid-square grid-square-green grid-item";
         }
-    </script>   
+    </script>
 </body>
 </html>
