@@ -94,11 +94,11 @@
                 elem.innerHTML += `<tr id='grid-row-${y}' class='grid-row'></tr>`;
                 document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[3][size - y - 1]}</td>`;
                 for (let x = 0; x < size; x++) {
-                    let color = grid[y][x] === 1 ? "grid-square-green"
+                    let colour = grid[y][x] === 1 ? "grid-square-green"
                         : grid[y][x] === 2 ? "grid-square-red" 
                         : "grid-square-white";
                     document.getElementById("grid-row-" + y).innerHTML += `<td id='grid-square-${y}-${x}' 
-                        class='grid-square ${color} grid-item' onclick="squareClick(${x},${y})"></td>`;
+                        class='grid-square ${colour} grid-item' onclick="squareClick(${x},${y})"></td>`;
                 }
                 document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[1][y]}</td>`;
             }
