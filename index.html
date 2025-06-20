@@ -8,7 +8,6 @@
     <style>
         :root {
             --theme-green: #324A22;
-            --theme-darkgreen: #004723;
             --theme-background: #92c4a6;
             --theme-red: #ff0000;
         }
@@ -28,14 +27,20 @@
             font-size: 40pt;
             text-align: center;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            color: var(--theme-darkgreen);
+            color: var(--theme-green);
+            text-shadow: 0 0 6px #ffffffaa;
+        }
+        
+        .text-subtitle {
+            font-size: 20pt;
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: var(--theme-green);
         }
 
         .grid {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            margin-left: 50%;
+            transform: translate(-50%, 0);
             width: 300px;
             height: 300px;
         }
@@ -76,23 +81,25 @@
 
 <body>
     <h1 class="text text-title">Tree Game</h1>
+    <h1 class="text text-subtitle">By LycheeDragonFriut8 and Derek</h1>
     <table class="grid">
         <tbody id="grid">
             <!--Javascript-->
         </tbody>
     </table>
+    <h1 class="text text-subtitle">Copyright &copy; 2025</h1>
     <script>
         function updateGrid(elem, size, numbers, grid=[]) {
             elem.innerHTML = ""; // Clear the grid
             elem.innerHTML += "<tr id='grid-row-top' class='grid-row'></tr>";
             document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner grid-item'></td>";
             for (let x = 0; x < size; x++) {
-                document.getElementById("grid-row-top").innerHTML += `<td class='grid-number grid-item'>${numbers[0][x]}</td>`;
+                document.getElementById("grid-row-top").innerHTML += `<td class='grid-number grid-item'>${numbers[0][x]?numbers[0][x]:0}</td>`;
             }
             document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner grid-item'></td>";
             for (let y = 0; y < size; y++) {
                 elem.innerHTML += `<tr id='grid-row-${y}' class='grid-row'></tr>`;
-                document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[3][size - y - 1]}</td>`;
+                document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[3][size - y - 1]?numbers[3][size - y - 1]:0}</td>`;
                 for (let x = 0; x < size; x++) {
                     let colour = grid[y][x] === 1 ? "grid-square-green"
                         : grid[y][x] === 2 ? "grid-square-red" 
@@ -100,12 +107,12 @@
                     document.getElementById("grid-row-" + y).innerHTML += `<td id='grid-square-${y}-${x}' 
                         class='grid-square ${colour} grid-item' onclick="squareClick(${x},${y})"></td>`;
                 }
-                document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[1][y]}</td>`;
+                document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[1][y]?numbers[1][y]:0}</td>`;
             }
             elem.innerHTML += "<tr id='grid-row-bottom' class='grid-row'></tr>";
             document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner grid-item'></td>";
             for (let x = 0; x < size; x++) {
-                document.getElementById("grid-row-bottom").innerHTML += `<td class='grid-number grid-item'>${numbers[2][size - x - 1]}</td>`;
+                document.getElementById("grid-row-bottom").innerHTML += `<td class='grid-number grid-item'>${numbers[2][size - x - 1]?numbers[2][size - x - 1]:0}</td>`;
             }
             document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner grid-item'></td>";
         }
