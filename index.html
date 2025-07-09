@@ -90,32 +90,33 @@
     <h1 class="text text-subtitle">Copyright &copy; 2025</h1>
     <script>
         function updateGrid(elem, size, numbers, grid=[]) {
-            elem.innerHTML = ""; // Clear the grid
-            elem.innerHTML += "<tr id='grid-row-top' class='grid-row'></tr>";
-            document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner grid-item'></td>";
-            for (let x = 0; x < size; x++) {
-                document.getElementById("grid-row-top").innerHTML += `<td class='grid-number grid-item'>${numbers[0][x]?numbers[0][x]:0}</td>`;
-            }
-            document.getElementById("grid-row-top").innerHTML += "<td class='grid-corner grid-item'></td>";
-            for (let y = 0; y < size; y++) {
-                elem.innerHTML += `<tr id='grid-row-${y}' class='grid-row'></tr>`;
-                document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[3][size - y - 1]?numbers[3][size - y - 1]:0}</td>`;
-                for (let x = 0; x < size; x++) {
-                    let colour = grid[y][x] === 1 ? "grid-square-green"
-                        : grid[y][x] === 2 ? "grid-square-red" 
-                        : "grid-square-white";
-                    document.getElementById("grid-row-" + y).innerHTML += `<td id='grid-square-${y}-${x}' 
-                        class='grid-square ${colour} grid-item' onclick="squareClick(${x},${y})"></td>`;
-                }
-                document.getElementById("grid-row-" + y).innerHTML += `<td class='grid-number grid-item'>${numbers[1][y]?numbers[1][y]:0}</td>`;
-            }
-            elem.innerHTML += "<tr id='grid-row-bottom' class='grid-row'></tr>";
-            document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner grid-item'></td>";
-            for (let x = 0; x < size; x++) {
-                document.getElementById("grid-row-bottom").innerHTML += `<td class='grid-number grid-item'>${numbers[2][size - x - 1]?numbers[2][size - x - 1]:0}</td>`;
-            }
-            document.getElementById("grid-row-bottom").innerHTML += "<td class='grid-corner grid-item'></td>";
+    let html = "";
+    html += "<tr id='grid-row-top' class='grid-row'>";
+    html += "<td class='grid-corner grid-item'></td>";
+    for (let x = 0; x < size; x++) {
+        html += `<td class='grid-number grid-item'>${numbers[0][x]?numbers[0][x]:0}</td>`;
+    }
+    html += "<td class='grid-corner grid-item'></td></tr>";
+    for (let y = 0; y < size; y++) {
+        html += `<tr id='grid-row-${y}' class='grid-row'>`;
+        html += `<td class='grid-number grid-item'>${numbers[3][size - y - 1]?numbers[3][size - y - 1]:0}</td>`;
+        for (let x = 0; x < size; x++) {
+            let colour = grid[y][x] === 1 ? "grid-square-green"
+                : grid[y][x] === 2 ? "grid-square-red" 
+                : "grid-square-white";
+            html += `<td id='grid-square-${y}-${x}' class='grid-square ${colour} grid-item' onclick="squareClick(${x},${y})"></td>`;
         }
+        html += `<td class='grid-number grid-item'>${numbers[1][y]?numbers[1][y]:0}</td>`;
+        html += "</tr>";
+    }
+    html += "<tr id='grid-row-bottom' class='grid-row'>";
+    html += "<td class='grid-corner grid-item'></td>";
+    for (let x = 0; x < size; x++) {
+        html += `<td class='grid-number grid-item'>${numbers[2][size - x - 1]?numbers[2][size - x - 1]:0}</td>`;
+    }
+    html += "<td class='grid-corner grid-item'></td></tr>";
+    elem.innerHTML = html;
+}
         function getClearGrid(size) {
             var re = [];
             for (let y = 0; y < size; y++) {
@@ -130,8 +131,69 @@
         var grid = getClearGrid(SIZE);
         let elem = document.getElementById("grid");
         // Random numbers can be called by Math.floor(Math.random() * 6) to get a number between 0 and 5
-        const PUZZ = [[0, 0, 0, 3, 5], [2, 1, 2, 2, 1], [5, 3, 0, 0, 0], [1, 2, 2, 1, 2]]
-        updateGrid(elem, SIZE, PUZZ, grid);
+        function getRandomSolutionGrid(size) {
+    let grid = [];
+    for (let y = 0; y < size; y++) {
+        grid[y] = [];
+        for (let x = 0; x < size; x++) {
+            grid[y][x] = Math.floor(Math.random() * 3); // 0, 1, or 2
+        }
+    }
+    return grid;
+}
+
+// 2. Calculate clues for each side based on the solution grid
+function getCluesFromGrid(grid) {
+    const size = grid.length;
+    let top = [], right = [], bottom = [], left = [];
+    // Top clues (columns, top to bottom)
+    for (let x = 0; x < size; x++) {
+        let count = 0;
+        for (let y = 0; y < size; y++) {
+            if (grid[y][x] === 1) count++; // Example: count green squares
+        }
+        top.push(count);
+    }
+    // Right clues (rows, left to right)
+    for (let y = 0; y < size; y++) {
+        let count = 0;
+        for (let x = 0; x < size; x++) {
+            if (grid[y][x] === 1) count++;
+        }
+        right.push(count);
+    }
+    // Bottom clues (columns, bottom to top)
+    for (let x = 0; x < size; x++) {
+        let count = 0;
+        for (let y = size - 1; y >= 0; y--) {
+            if (grid[y][x] === 1) count++;
+        }
+        bottom.push(count);
+    }
+    // Left clues (rows, right to left)
+    for (let y = size - 1; y >= 0; y--) {
+        let count = 0;
+        for (let x = size - 1; x >= 0; x--) {
+            if (grid[y][x] === 1) count++;
+        }
+        left.push(count);
+    }
+    return [top, right, bottom, left];
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const SIZE = 5;
+    const solutionGrid = getRandomSolutionGrid(SIZE);
+    const PUZZ = getCluesFromGrid(solutionGrid);
+    var grid = getClearGrid(SIZE);
+    let elem = document.getElementById("grid");
+    updateGrid(elem, SIZE, PUZZ, grid);
+
+    // Make grid and PUZZ accessible to squareClick
+    window.grid = grid;
+    window.PUZZ = PUZZ;
+    window.SIZE = SIZE;
+});
         function squareClick(x, y) {
             console.log("Clicked");
             grid[y][x] = (grid[y][x] + 1) % 3;
